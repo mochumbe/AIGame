@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student AI Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="bg-gray-50 font-sans">
+    <div class="min-h-screen flex flex-col">
+        <!-- Header -->
+        <header class="bg-indigo-600 text-white p-4 shadow-md">
+            <div class="container mx-auto flex justify-between items-center">
+                <div class="flex items-center space-x-4">
+                    <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Profile" class="w-10 h-10 rounded-full border-2 border-white">
+                    <div>
+                        <h1 class="font-bold">Sarah Johnson</h1>
+                        <p class="text-xs opacity-80">Computer Science | Semester 4</p>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-6">
+                    <div class="text-center">
+                        <p class="text-xs">GPA</p>
+                        <p class="font-bold">3.72</p>
+                    </div>
+                    <div class="text-center">
+                        <p class="text-xs">Next Exam</p>
+                        <p class="font-bold">7 days</p>
+                    </div>
+                    <div class="relative">
+                        <input type="text" placeholder="Search course materials..." class="py-1 px-4 pr-8 rounded-full text-gray-800 text-sm w-64 focus:outline-none">
+                        <i class="fas fa-search absolute right-3 top-2 text-gray-500"></i>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <div class="flex flex-1">
+            <!-- Sidebar -->
+            <aside class="w-64 bg-white shadow-md p-4 hidden md:block">
+                <nav class="space-y-1">
+                    <a href="#" class="flex items-center space-x-3 p-2 rounded-lg bg-indigo-50 text-indigo-700">
+                        <i class="fas fa-home w-5"></i>
+                        <span>Dashboard</span>
+                    </a>
+                    <a href="#" class="flex items-center space-x-3 p-2 rounded-lg hover:bg-gray-100">
+                        <i class="fas fa-calendar w-5"></i>
+                        <span>Calendar</span>
+                    </a>
+                    <a href="#" class="flex items-center space-x-3 p-2 rounded-lg hover:bg-gray-100">
+                        <i class="fas fa-book w-5"></i>
+                        <span>Courses</span>
+                    </a>
+                    <a href="#" class="flex items-center space-x-3 p-2 rounded-lg hover:bg-gray-100">
+                        <i class="fas fa-chart-line w-5"></i>
+                        <span>Analytics</span>
+                    </a>
+                    <a href="#" class="flex items-center space-x-3 p-2 rounded-lg hover:bg-gray-100">
+                        <i class="fas fa-cog w-5"></i>
+                        <span>Settings</span>
+                    </a>
+                </nav>
+
+                <div class="mt-8">
+                    <h3 class="text-xs font-semibold text-gray-500 uppercase tracking-wider">Upcoming</h3>
+                    <div class="mt-2 space-y-2">
+                        <div class="p-2 border-l-4 border-indigo-400 bg-indigo-50">
+                            <p class="text-sm font-medium">Algorithms Quiz</p>
+                            <p class="text-xs text-gray-500">Tomorrow 10:00 AM</p>
+                        </div>
+                        <div class="p-2 border-l-4 border-yellow-400 bg-yellow-50">
+                            <p class="text-sm font-medium">DB Project</p>
+                            <p class="text-xs text-gray-500">Due in 3 days</p>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- Main Content -->
+            <main class="flex-1 p-6">
+                <div class="container mx-auto grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    <!-- Today's Focus Panel -->
+                    <div class="lg:col-span-2 bg-white rounded-xl shadow-md p-6">
+                        <div class="flex justify-between items-center mb-4">
+                            <h2 class="text-xl font-bold">Today's Focus</h2>
+                            <span class="text-sm text-gray-500">Wed, May 15</span>
+                        </div>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="border rounded-lg p-4">
+                                <h3 class="font-semibold mb-2">Upcoming Deadlines</h3>
+                                <ul class="space-y-3">
+                                    <li class="flex items-start">
+                                        <span class="w-2 h-2 bg-red-500 rounded-full mt-2 mr-2"></span>
+                                        <div>
+                                            <p class="font-medium">Algorithms Homework 4</p>
+                                            <p class="text-xs text-gray-500">Due tomorrow</p>
+                                        </div>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <span class="w-2 h-2 bg-yellow-500 rounded-full mt-2 mr-2"></span>
+                                        <div>
+                                            <p class="font-medium">Database Project</p>
+                                            <p class="text-xs text-gray-500">Due in 3 days</p>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                            
+                            <div class="border rounded-lg p-4">
+                                <h3 class="font-semibold mb-2">Recommended Study</h3>
+                                <div class="space-y-2">
+                                    <div class="flex justify-between items-center">
+                                        <span>Graph Algorithms</span>
+                                        <span class="text-xs bg-indigo-100 text-indigo-800 px-2 py-1 rounded">Priority</span>
+                                    </div>
+                                    <div class="h-2 bg-gray-200 rounded-full">
+                                        <div class="h-2 bg-indigo-600 rounded-full" style="width: 45%"></div>
+                                    </div>
+                                    <p class="text-xs text-gray-500">Based on your quiz performance</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-4 bg-indigo-50 rounded-lg p-4">
+                            <h3 class="font-semibold mb-2">Daily Learning Goal</h3>
+                            <div class="flex items-center space-x-2">
+                                <div class="flex-1 bg-white rounded-full h-4">
+                                    <div class="bg-indigo-600 h-4 rounded-full" style="width: 70%"></div>
+                                </div>
+                                <span class="text-sm font-medium">70%</span>
+                            </div>
+                            <p class="text-xs mt-1 text-gray-600">2h 15m studied today</p>
+                        </div>
+                    </div>
+
+                    <!-- Course Performance -->
+                    <div class="bg-white rounded-xl shadow-md p-6">
+                        <h2 class="text-xl font-bold mb-4">Course Performance</h2>
+                        <div class="space-y-4">
+                            <div>
+                                <div class="flex justify-between mb-1">
+                                    <span class="font-medium">Algorithms</span>
+                                    <span class="font-bold">88%</span>
+                                </div>
+                                <div class="w-full bg-gray-200 rounded-full h-2.5">
+                                    <div class="bg-green-500 h-2.5 rounded-full" style="width: 88%"></div>
+                                </div>
+                                <p class="text-xs mt-1 text-gray-500">Class avg: 82% | Weakness: Dynamic Programming</p>
+                            </div>
+                            <div>
+                                <div class="flex justify-between mb-1">
+                                    <span class="font-medium">Database Systems</span>
+                                    <span class="font-bold">76%</span>
+                                </div>
+                                <div class="w-full bg-gray-200 rounded-full h-2.5">
+                                    <div class="bg-yellow-500 h-2.5 rounded-full" style="width: 76%"></div>
+                                </div>
+                                <p class="text-xs mt-1 text-gray-500">Class avg: 71% | Weakness: Normalization</p>
+                            </div>
+                            <div>
+                                <div class="flex justify-between mb-1">
+                                    <span class="font-medium">Computer Networks</span>
+                                    <span class="font-bold">92%</span>
+                                </div>
+                                <div class="w-full bg-gray-200 rounded-full h-2.5">
+                                    <div class="bg-green-500 h-2.5 rounded-full" style="width: 92%"></div>
+                                </div>
+                                <p class="text-xs mt-1 text-gray-500">Class avg: 85% | Strength: TCP/IP</p>
+                            </div>
+                        </div>
+                        <button class="mt-4 w-full py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition">
+                            View Detailed Analytics
+                        </button>
+                    </div>
+
+                    <!-- AI Study Assistant -->
+                    <div class="lg:col-span-2 bg-white rounded-xl shadow-md p-6">
+                        <h2 class="text-xl font-bold mb-4">AI Study Assistant</h2>
+                        <div class="border rounded-lg p-4 h-64 overflow-y-auto mb-4 bg-gray-50">
+                            <div class="flex mb-4">
+                                <div class="bg-indigo-100 p-3 rounded-lg max-w-xs">
+                                    <p class="text-sm">Hi Sarah! How can I help you study today?</p>
+                                </div>
+                            </div>
+                            <div class="flex justify-end mb-4">
+                                <div class="bg-indigo-600 text-white p-3 rounded-lg max-w-xs">
+                                    <p class="text-sm">Can you explain Dijkstra's algorithm in simple terms?</p>
+                                </div>
+                            </div>
+                            <div class="flex mb-4">
+                                <div class="bg-indigo-100 p-3 rounded-lg max-w-2xl">
+                                    <p class="text-sm">Dijkstra's algorithm is like finding the shortest path on a map. Imagine you're in a city and want to walk to different places with the least steps. The algorithm helps you find that shortest route by checking all possible paths step by step, always choosing the shortest known path first.</p>
+                                    <div class="mt-2 flex space-x-2">
+                                        <button class="text-xs bg-indigo-200 px-2 py-1 rounded">Simplify more</button>
+                                        <button class="text-xs bg-indigo-200 px-2 py-1 rounded">Show example</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex space-x-2">
+                            <input type="text" placeholder="Ask a question..." class="flex-1 border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                            <button class="bg-indigo-600 text-white p-2 rounded-lg hover:bg-indigo-700 transition">
+                                <i class="fas fa-paper-plane"></i>
+                            </button>
+                            <button class="bg-yellow-500 text-white p-2 rounded-lg hover:bg-yellow-600 transition" title="Explain like I'm 5">
+                                <i class="fas fa-child"></i>
+                            </button>
+                            <button class="bg-green-500 text-white p-2 rounded-lg hover:bg-green-600 transition" title="Generate Flashcards">
+                                <i class="fas fa-layer-group"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Resource Recommendations -->
+                    <div class="bg-white rounded-xl shadow-md p-6">
+                        <h2 class="text-xl font-bold mb-4">Recommended Resources</h2>
+                        <div class="space-y-4">
+                            <div class="border rounded-lg p-3">
+                                <div class="flex items-start">
+                                    <div class="bg-indigo-100 p-2 rounded-lg mr-3">
+                                        <i class="fas fa-video text-indigo-600"></i>
+                                    </div>
+                                    <div>
+                                        <p class="font-medium">Graph Algorithms Explained</p>
+                                        <p class="text-xs text-gray-500">YouTube · 15 min</p>
+                                        <div class="mt-1 flex space-x-1">
+                                            <span class="text-xs bg-indigo-100 text-indigo-800 px-1 rounded">Video</span>
+                                            <span class="text-xs bg-green-100 text-green-800 px-1 rounded">Recommended</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="border rounded-lg p-3">
+                                <div class="flex items-start">
+                                    <div class="bg-blue-100 p-2 rounded-lg mr-3">
+                                        <i class="fas fa-users text-blue-600"></i>
+                                    </div>
+                                    <div>
+                                        <p class="font-medium">Study Group: Database Systems</p>
+                                        <p class="text-xs text-gray-500">Tomorrow 4:00 PM · CS Building 302</p>
+                                        <div class="mt-1 flex space-x-1">
+                                            <span class="text-xs bg-blue-100 text-blue-800 px-1 rounded">Group</span>
+                                            <span class="text-xs bg-purple-100 text-purple-800 px-1 rounded">3 peers</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="border rounded-lg p-3">
+                                <div class="flex items-start">
+                                    <div class="bg-red-100 p-2 rounded-lg mr-3">
+                                        <i class="fas fa-book text-red-600"></i>
+                                    </div>
+                                    <div>
+                                        <p class="font-medium">Database Normalization Guide</p>
+                                        <p class="text-xs text-gray-500">Textbook Chapter 7</p>
+                                        <div class="mt-1 flex space-x-1">
+                                            <span class="text-xs bg-red-100 text-red-800 px-1 rounded">Reading</span>
+                                            <span class="text-xs bg-yellow-100 text-yellow-800 px-1 rounded">Weakness</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <button class="w-full py-2 border-2 border-dashed border-gray-300 rounded-lg text-gray-500 hover:border-indigo-300 hover:text-indigo-500 transition">
+                                <i class="fas fa-plus mr-1"></i> View More
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+<!-- Add this to your dashboard template -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const chatInput = document.querySelector('#ai-chat-input');
+    const sendButton = document.querySelector('#ai-send-button');
+    const chatContainer = document.querySelector('#ai-chat-container');
+    const simplifyButton = document.querySelector('#simplify-button');
+    const flashcardButton = document.querySelector('#flashcard-button');
+    const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+    
+    // Load conversation history
+    fetch('/api/conversation-history/')
+        .then(response => response.json())
+        .then(data => {
+            data.conversations.forEach(conv => {
+                addMessageToChat(conv.user_message, 'user');
+                addMessageToChat(conv.ai_response, 'ai');
+            });
+        });
+    
+    // Send message handler
+    function sendMessage() {
+        const message = chatInput.value.trim();
+        if (!message) return;
+        
+        addMessageToChat(message, 'user');
+        chatInput.value = '';
+        
+        fetch('/api/ask-ai/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': csrfToken
+            },
+            body: JSON.stringify({
+                question: message,
+                context: 'Computer Science'  // You can make this dynamic
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.error) {
+                addMessageToChat(`Error: ${data.error}`, 'error');
+            } else {
+                addMessageToChat(data.response, 'ai');
+            }
+        })
+        .catch(error => {
+            addMessageToChat(`Network error: ${error}`, 'error');
+        });
+    }
+    
+    // Simplify button handler
+    simplifyButton.addEventListener('click', function() {
+        const lastAiMessage = document.querySelector('#ai-chat-container .ai-message:last-child');
+        if (lastAiMessage) {
+            const content = lastAiMessage.textContent;
+            fetch('/api/ask-ai/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': csrfToken
+                },
+                body: JSON.stringify({
+                    question: `Explain this in simpler terms: ${content}`,
+                    context: 'Computer Science'
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.response) {
+                    addMessageToChat(data.response, 'ai');
+                }
+            });
+        }
+    });
+    
+    // Flashcard button handler
+    flashcardButton.addEventListener('click', function() {
+        const selectedText = window.getSelection().toString().trim();
+        if (selectedText) {
+            fetch('/api/ask-ai/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': csrfToken
+                },
+                body: JSON.stringify({
+                    question: `Create a flashcard for: ${selectedText}`,
+                    context: 'Computer Science'
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.response) {
+                    addMessageToChat(data.response, 'ai');
+                }
+            });
+        }
+    });
+    
+    // Enter key handler
+    chatInput.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+            sendMessage();
+        }
+    });
+    
+    sendButton.addEventListener('click', sendMessage);
+    
+    function addMessageToChat(message, sender) {
+        const messageDiv = document.createElement('div');
+        messageDiv.className = `flex ${sender === 'user' ? 'justify-end' : 'justify-start'} mb-4`;
+        
+        const contentDiv = document.createElement('div');
+        contentDiv.className = sender === 'user' 
+            ? 'bg-indigo-600 text-white p-3 rounded-lg max-w-xs'
+            : 'bg-indigo-100 p-3 rounded-lg max-w-2xl';
+        contentDiv.textContent = message;
+        
+        messageDiv.appendChild(contentDiv);
+        chatContainer.appendChild(messageDiv);
+        chatContainer.scrollTop = chatContainer.scrollHeight;
+    }
+});
+</script>
+</body>
+
+</html>
