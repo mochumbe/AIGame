@@ -267,136 +267,56 @@
                             </button>
                         </div>
                     </div>
+
+                    <!-- AI Chat -->
+                    <div class="bg-white rounded-xl shadow-md p-6 mt-6">
+                        <h2 class="font-bold mb-2">AI Chat</h2>
+                        <div id="chat-box" class="h-40 overflow-y-auto border p-2 mb-2 bg-gray-50"></div>
+                        <div class="flex">
+                            <input id="chat-input" type="text" class="flex-1 border rounded-l px-2 py-1" placeholder="Type your message...">
+                            <button onclick="sendMessage()" class="bg-indigo-600 text-white px-4 rounded-r">Send</button>
+                        </div>
+                    </div>
                 </div>
             </main>
         </div>
     </div>
-<!-- Add this to your dashboard template -->
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    const chatInput = document.querySelector('#ai-chat-input');
-    const sendButton = document.querySelector('#ai-send-button');
-    const chatContainer = document.querySelector('#ai-chat-container');
-    const simplifyButton = document.querySelector('#simplify-button');
-    const flashcardButton = document.querySelector('#flashcard-button');
-    const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
-    
-    // Load conversation history
-    fetch('/api/conversation-history/')
-        .then(response => response.json())
-        .then(data => {
-            data.conversations.forEach(conv => {
-                addMessageToChat(conv.user_message, 'user');
-                addMessageToChat(conv.ai_response, 'ai');
-            });
-        });
-    
-    // Send message handler
-    function sendMessage() {
-        const message = chatInput.value.trim();
-        if (!message) return;
-        
-        addMessageToChat(message, 'user');
-        chatInput.value = '';
-        
-        fetch('/api/ask-ai/', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRFToken': csrfToken
-            },
-            body: JSON.stringify({
-                question: message,
-                context: 'Computer Science'  // You can make this dynamic
-            })
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.error) {
-                addMessageToChat(`Error: ${data.error}`, 'error');
-            } else {
-                addMessageToChat(data.response, 'ai');
-            }
-        })
-        .catch(error => {
-            addMessageToChat(`Network error: ${error}`, 'error');
-        });
-    }
-    
-    // Simplify button handler
-    simplifyButton.addEventListener('click', function() {
-        const lastAiMessage = document.querySelector('#ai-chat-container .ai-message:last-child');
-        if (lastAiMessage) {
-            const content = lastAiMessage.textContent;
-            fetch('/api/ask-ai/', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRFToken': csrfToken
-                },
-                body: JSON.stringify({
-                    question: `Explain this in simpler terms: ${content}`,
-                    context: 'Computer Science'
-                })
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.response) {
-                    addMessageToChat(data.response, 'ai');
-                }
-            });
-        }
-    });
-    
-    // Flashcard button handler
-    flashcardButton.addEventListener('click', function() {
-        const selectedText = window.getSelection().toString().trim();
-        if (selectedText) {
-            fetch('/api/ask-ai/', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRFToken': csrfToken
-                },
-                body: JSON.stringify({
-                    question: `Create a flashcard for: ${selectedText}`,
-                    context: 'Computer Science'
-                })
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.response) {
-                    addMessageToChat(data.response, 'ai');
-                }
-            });
-        }
-    });
-    
-    // Enter key handler
-    chatInput.addEventListener('keypress', function(e) {
-        if (e.key === 'Enter') {
-            sendMessage();
-        }
-    });
-    
-    sendButton.addEventListener('click', sendMessage);
-    
-    function addMessageToChat(message, sender) {
-        const messageDiv = document.createElement('div');
-        messageDiv.className = `flex ${sender === 'user' ? 'justify-end' : 'justify-start'} mb-4`;
-        
-        const contentDiv = document.createElement('div');
-        contentDiv.className = sender === 'user' 
-            ? 'bg-indigo-600 text-white p-3 rounded-lg max-w-xs'
-            : 'bg-indigo-100 p-3 rounded-lg max-w-2xl';
-        contentDiv.textContent = message;
-        
-        messageDiv.appendChild(contentDiv);
-        chatContainer.appendChild(messageDiv);
-        chatContainer.scrollTop = chatContainer.scrollHeight;
-    }
-});
-</script>
+
 </body>
 
 </html>
+<script>
+function sendMessage() {
+    const input = document.getElementById('chat-input');
+    const chatBox = document.getElementById('chat-box');
+    const message = input.value.trim();
+    if (!message) return;
+    // Display user message
+    chatBox.innerHTML += `<div class="text-right text-blue-700 mb-1">You: ${message}</div>`;
+    input.value = '';
+    chatBox.scrollTop = chatBox.scrollHeight;
+    fetch('/ai-chat/', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({message})
+    })
+    .then(res => res.json())
+    .then(data => {
+        chatBox.innerHTML += `<div class="text-left text-green-700 mb-1">AI: ${data.response}</div>`;
+        chatBox.scrollTop = chatBox.scrollHeight;
+    })
+    .catch(() => {
+        chatBox.innerHTML += `<div class="text-left text-red-700 mb-1">AI: Sorry, there was an error.</div>`;
+        chatBox.scrollTop = chatBox.scrollHeight;
+    });
+}
+// Allow Enter key to send message
+document.addEventListener('DOMContentLoaded', function() {
+    const input = document.getElementById('chat-input');
+    if (input) {
+        input.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') sendMessage();
+        });
+    }
+});
+</script>

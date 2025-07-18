@@ -3,16 +3,15 @@ from django.db import models
 from django.contrib.auth.models import User
 
 class DeepSeekAPIKey(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
     api_key = models.CharField(max_length=128)
     last_used = models.DateTimeField(auto_now=True)
     is_active = models.BooleanField(default=True)
 
     def __str__(self):
-        return f"API Key for {self.user.username}"
+        return f"API Key for {self.api_key} (Active: {self.is_active})"
 
 class Conversation(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+
     timestamp = models.DateTimeField(auto_now_add=True)
     user_message = models.TextField()
     ai_response = models.TextField()
@@ -22,4 +21,4 @@ class Conversation(models.Model):
         ordering = ['-timestamp']
 
     def __str__(self):
-        return f"Conversation with {self.user.username} at {self.timestamp}"
+        return f"Conversation at {self.timestamp} - Context: {self.course_context or 'No context'}"
